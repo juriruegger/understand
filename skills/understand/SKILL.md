@@ -12,7 +12,7 @@ Explain the behaviorally important parts of a change set with enough evidence th
 ## Intake
 
 - If the user already specified `uncommitted changes` or `current branch`, skip the scope question.
-- Otherwise ask one short plain-text question:
+- Otherwise use `ask_user` for one short choice question with these options:
   - `Understand uncommitted changes`
   - `Understand the current branch`
 
@@ -21,7 +21,7 @@ Explain the behaviorally important parts of a change set with enough evidence th
 If the user chose `current branch` and did not already provide a target branch:
 
 - Call `understand_git` with action `targets` and `refresh: true`.
-- Present the returned options with the default branch first.
+- Present the returned options with `ask_user`, with the default branch first.
 - Allow the user to type their own branch name or ref.
 - If the tool reports stale refs, mention that the branch list may be slightly stale.
 
@@ -44,6 +44,13 @@ If the manifest tool fails because the current directory is not a git repository
 ## Read Code
 
 Use the manifest to decide what to read next.
+
+Before doing your own deep reads, launch an `explore` subagent for a first-pass repo scan of the important changed areas.
+
+- Use the subagent to identify the most behaviorally important files, entry points, data-flow edges, interface changes, and any surrounding unchanged code that is likely required for understanding.
+- Ask the subagent to return a concise prioritized reading list with brief reasons and file paths.
+- Then do the final deep reads yourself from the subagent's prioritized results.
+- If the change set is very small and already obvious from the manifest, you may skip the subagent.
 
 Prioritize files and areas that change:
 
@@ -89,7 +96,7 @@ Keep focus on important files and areas. Do not add a file-by-file omissions led
 
 ## Quiz
 
-After the explanation, offer an optional short quiz.
+After the explanation, offer an optional short quiz using `ask_user`.
 
 - Default to no quiz unless the user opts in.
 - Ask 3-7 questions.
@@ -97,3 +104,8 @@ After the explanation, offer an optional short quiz.
 - Use multiple-choice only when the change is broad enough that open-ended would be noisy or unfair.
 - Test active recall of architecture, data flow, interfaces, and behavior changes.
 - Do not ask trivia about file counts, branch names, or cosmetic edits.
+
+When asking quiz questions:
+
+- Use `ask_user` for each question.
+- For open-ended prompts, allow the user to type their own answer.

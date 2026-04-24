@@ -1,30 +1,24 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { type Plugin, tool } from '@opencode-ai/plugin';
 
 import { runUnderstandGit } from './git.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const skillPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../skills');
 
 export const UnderstandPlugin: Plugin = async ({ directory }) => {
-  const skillsDir = path.resolve(__dirname, '../skills');
-
   return {
-    config: async (config: Record<string, unknown>) => {
-      const mutableConfig = config as {
+    config: async (config) => {
+      const configWithSkills = config as typeof config & {
         skills?: {
           paths?: string[];
         };
       };
 
-      mutableConfig.skills ??= {};
-      mutableConfig.skills.paths ??= [];
-
-      if (!mutableConfig.skills.paths.includes(skillsDir)) {
-        mutableConfig.skills.paths.push(skillsDir);
-      }
+      configWithSkills.skills ??= {};
+      configWithSkills.skills.paths = [...(configWithSkills.skills.paths ?? []), skillPath];
     },
-
     tool: {
       understand_git: tool({
         description:
