@@ -51,4 +51,4 @@ jobs:
           NODE
 
       - name: Publish to npm
-        run: pnpm publish --provenance --access public --no-git-checks
+        run: npm publish --access public
