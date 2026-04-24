@@ -65,18 +65,6 @@ node dist/cli.js uncommitted-manifest --cwd /path/to/repo
 
 This repo can publish to npm automatically from GitHub Actions when you push a version tag.
 
-### One-time setup
-
-Configure npm trusted publishing for `@juriruegger/understand`:
-
-1. Open the npm package settings for `@juriruegger/understand`
-2. Add a trusted publisher for GitHub Actions
-3. Use owner `juriruegger`
-4. Use repository `understand`
-5. Use workflow file `.github/workflows/publish.yml`
-
-This avoids storing long-lived npm tokens in GitHub secrets.
-
 ### Publishing a release
 
 1. Update the package version:
