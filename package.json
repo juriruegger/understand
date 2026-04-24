@@ -44,7 +44,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "zod": "^3.24.1"
+    "@opencode-ai/plugin": "^1.14.24"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

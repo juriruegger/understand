@@ -20,6 +20,8 @@ Restart OpenCode after updating the config.
 `/understand`
 
 
+The bundled plugin exposes the `understand_git` tool and is intended to make the bundled `understand` skill available to OpenCode.
+
 The skill will:
 
 - ask whether to inspect uncommitted changes or the current branch
