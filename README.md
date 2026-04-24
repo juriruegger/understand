@@ -17,14 +17,8 @@ Add the plugin package name to the `plugin` array in your OpenCode config:
 Restart OpenCode after updating the config.
 
 ## Use
+`/understand`
 
-Invoke the skill explicitly. It is configured to avoid implicit loading.
-
-Examples:
-
-- `/understand`
-- `Use understand to explain my current branch`
-- `Use understand to explain my uncommitted changes`
 
 The skill will:
 
