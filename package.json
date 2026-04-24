@@ -1,0 +1,52 @@
+{
+  "name": "@juriruegger/understand",
+  "version": "0.1.0",
+  "description": "OpenCode plugin for understanding important code changes before merging.",
+  "author": "Juri Ruegger",
+  "license": "MIT",
+  "type": "module",
+  "main": ".opencode/plugins/understand.js",
+  "homepage": "https://github.com/juriruegger/understand#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juriruegger/understand.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juriruegger/understand/issues"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "skill",
+    "git",
+    "code-review",
+    "architecture"
+  ],
+  "bin": {
+    "understand-cli": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    ".opencode/plugins",
+    "skills"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

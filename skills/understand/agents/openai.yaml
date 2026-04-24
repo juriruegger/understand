@@ -1,0 +1,6 @@
+interface:
+  display_name: "Understand"
+  short_description: "Explain important code changes"
+  default_prompt: "Use $understand to explain the important changes in my current branch."
+policy:
+  allow_implicit_invocation: false
