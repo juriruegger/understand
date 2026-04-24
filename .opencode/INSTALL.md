@@ -10,7 +10,7 @@ Add the package to the `plugin` array in your `opencode.json`:
 
 Restart OpenCode.
 
-The plugin will register the bundled `understand` skill automatically.
+The package exposes the `understand_git` tool and is intended to make the bundled `understand` skill available to OpenCode.
 
 Invoke it explicitly:
 

@@ -1,12 +1,12 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { z } from 'zod';
+import { type Plugin, tool } from '@opencode-ai/plugin';
 
 import { runUnderstandGit } from './git.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export const UnderstandPlugin = async ({ directory }: { directory?: string }) => {
+export const UnderstandPlugin: Plugin = async ({ directory }) => {
   const skillsDir = path.resolve(__dirname, '../skills');
 
   return {
@@ -25,27 +25,26 @@ export const UnderstandPlugin = async ({ directory }: { directory?: string }) =>
       }
     },
 
-    tools: [
-      {
-        name: 'understand_git',
+    tool: {
+      understand_git: tool({
         description:
           'Generate structured git manifests for the understand skill. Use for branch target selection, branch diff manifests, or uncommitted change manifests.',
-        schema: z.object({
-          action: z.enum(['targets', 'branch-manifest', 'uncommitted-manifest']),
-          target: z.string().optional(),
-          refresh: z.boolean().optional()
-        }),
-        execute: async ({ action, target, refresh }: { action: 'targets' | 'branch-manifest' | 'uncommitted-manifest'; target?: string; refresh?: boolean }) => {
+        args: {
+          action: tool.schema.enum(['targets', 'branch-manifest', 'uncommitted-manifest']).describe('Manifest action to run'),
+          target: tool.schema.string().optional().describe('Target branch or ref for branch-manifest'),
+          refresh: tool.schema.boolean().optional().describe('Refresh remote refs before computing branch-based results')
+        },
+        async execute({ action, target, refresh }, context) {
           const result = runUnderstandGit({
             action,
-            cwd: directory ?? process.cwd(),
+            cwd: context.directory,
             target,
             refresh
           });
 
           return JSON.stringify(result, null, 2);
         }
-      }
-    ]
+      })
+    }
   };
 };
