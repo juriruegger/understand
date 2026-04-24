@@ -36,6 +36,9 @@ jobs:
       - name: Build package
         run: pnpm run build
 
+      - name: Set up npm trusted publishing
+        run: npm install -g npm@latest
+
       - name: Verify tag matches package version
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
