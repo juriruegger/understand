@@ -23,7 +23,7 @@
     "architecture"
   ],
   "bin": {
-    "understand-cli": "./dist/cli.js"
+    "understand-cli": "dist/cli.js"
   },
   "files": [
     "dist",
